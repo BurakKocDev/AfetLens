@@ -4,6 +4,10 @@ AfetLens, Türkiye ve çevresindeki güncel deprem verilerini etkileşimli bir
 harita ve anlaşılır istatistiklerle sunan açık kaynaklı bir sismik hareketlilik
 platformudur.
 
+## Canlı demo
+
+**[AfetLens'i aç](https://afetlens-tr.grassy-yew-2997.chatgpt.site/)**
+
 > AfetLens resmi bir uyarı sistemi değildir ve deprem tahmini yapmaz. Sunulan
 > veriler yalnızca bilgilendirme amaçlıdır.
 
