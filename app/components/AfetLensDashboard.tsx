@@ -81,8 +81,8 @@ const magnitudeColor = (magnitude: number) => {
   return "#80a89d";
 };
 
-const relativeTime = (iso: string) => {
-  const minutes = Math.max(1, Math.round((Date.now() - new Date(iso).getTime()) / 60000));
+const relativeTime = (iso: string, referenceTime: number) => {
+  const minutes = Math.max(1, Math.round((referenceTime - new Date(iso).getTime()) / 60000));
   if (minutes < 60) return `${minutes} dk önce`;
   const hours = Math.floor(minutes / 60);
   if (hours < 24) return `${hours} sa önce`;
@@ -137,11 +137,14 @@ export function AfetLensDashboard() {
   }, []);
 
   useEffect(() => {
-    loadEarthquakes();
+    const timer = window.setTimeout(() => void loadEarthquakes(), 0);
+    return () => window.clearTimeout(timer);
   }, [loadEarthquakes]);
 
+  const referenceTime = useMemo(() => new Date(generatedAt).getTime(), [generatedAt]);
+
   const filteredEvents = useMemo(() => {
-    const cutoff = Date.now() - rangeHours * HOUR;
+    const cutoff = referenceTime - rangeHours * HOUR;
     const normalizedQuery = query.trim().toLocaleLowerCase("tr-TR");
     return events.filter(
       (event) =>
@@ -150,7 +153,7 @@ export function AfetLensDashboard() {
         (!normalizedQuery ||
           event.location.toLocaleLowerCase("tr-TR").includes(normalizedQuery)),
     );
-  }, [events, minMagnitude, query, rangeHours]);
+  }, [events, minMagnitude, query, rangeHours, referenceTime]);
 
   const selected = events.find((event) => event.id === selectedId) ?? filteredEvents[0];
 
@@ -247,13 +250,13 @@ export function AfetLensDashboard() {
   const hourlyBars = useMemo(() => {
     const buckets = new Array(12).fill(0) as number[];
     events.forEach((event) => {
-      const hoursAgo = (Date.now() - new Date(event.occurredAt).getTime()) / HOUR;
+      const hoursAgo = (referenceTime - new Date(event.occurredAt).getTime()) / HOUR;
       if (hoursAgo >= 0 && hoursAgo < 24) {
         buckets[Math.min(11, Math.floor(hoursAgo / 2))] += 1;
       }
     });
     return buckets.reverse();
-  }, [events]);
+  }, [events, referenceTime]);
 
   const downloadCsv = () => {
     const header = "tarih,buyukluk,derinlik_km,enlem,boylam,konum,kaynak\n";
@@ -490,7 +493,7 @@ export function AfetLensDashboard() {
                   </span>
                   <span className="event-copy">
                     <strong>{event.location}</strong>
-                    <small>{relativeTime(event.occurredAt)} · {event.depthKm.toFixed(1)} km</small>
+                    <small>{relativeTime(event.occurredAt, referenceTime)} · {event.depthKm.toFixed(1)} km</small>
                   </span>
                   <ChevronRight size={16} />
                 </button>
@@ -507,7 +510,7 @@ export function AfetLensDashboard() {
               <p className="eyebrow"><Activity size={14} /> Son 24 saat</p>
               <h3>Saatlik hareketlilik</h3>
             </div>
-            <span>{events.filter((event) => Date.now() - new Date(event.occurredAt).getTime() <= 24 * HOUR).length} olay</span>
+            <span>{events.filter((event) => referenceTime - new Date(event.occurredAt).getTime() <= 24 * HOUR).length} olay</span>
           </div>
           <div className="bar-chart" aria-label="Saatlik deprem sayısı grafiği">
             {hourlyBars.map((value, index) => {

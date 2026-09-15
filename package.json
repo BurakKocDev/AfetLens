@@ -17,13 +17,13 @@
     "drizzle-orm": "0.45.2",
     "leaflet": "^1.9.4",
     "lucide-react": "^0.468.0",
-    "next": "16.2.6",
-    "react": "19.2.6",
-    "react-dom": "19.2.6",
+    "next": "16.3.5",
+    "react": "19.3.0",
+    "react-dom": "19.3.0",
     "react-leaflet": "^5.0.0"
   },
   "devDependencies": {
-    "@cloudflare/vite-plugin": "1.37.1",
+    "@cloudflare/vite-plugin": "1.54.9",
     "@tailwindcss/postcss": "4.2.1",
     "@types/leaflet": "^1.9.21",
     "@types/node": "22.19.19",
@@ -33,13 +33,13 @@
     "@vitejs/plugin-rsc": "0.5.26",
     "drizzle-kit": "0.31.10",
     "eslint": "9.39.4",
-    "eslint-config-next": "16.2.6",
-    "react-server-dom-webpack": "19.2.6",
+    "eslint-config-next": "16.3.5",
+    "react-server-dom-webpack": "19.3.0",
     "tailwindcss": "4.2.1",
     "typescript": "5.9.3",
     "vinext": "0.0.50",
-    "vite": "8.0.13",
-    "wrangler": "4.92.0"
+    "vite": "8.3.0",
+    "wrangler": "4.131.2"
   },
   "type": "module"
 }
