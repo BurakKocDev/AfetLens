@@ -253,3 +253,11 @@ AfetLens:
 ## Projenin Amacı
 
 AfetLens, açık sismik verinin modern bir web ürünü içinde nasıl erişilebilir, şeffaf ve kullanıcı dostu biçimde sunulabileceğini göstermeyi amaçlar.
+
+---
+
+## Lisans
+
+Özgün AfetLens kaynak kodu ve dokümantasyonu [MIT lisansı](LICENSE) ile
+sunulur. USGS verileri ile harita servisleri kendi kullanım ve atıf koşullarına
+tabidir; ayrıntılar [üçüncü taraf bildiriminde](THIRD_PARTY_NOTICES.md) bulunur.
